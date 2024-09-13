@@ -1,0 +1,559 @@
+@import url('http://fonts.googleapis.com/css2?family_Exo+2:wght@300;400;500;600;700;800&family_Exo:wght@200;300;400;500;600;700;800&display-swap');
+
+*,
+*::before,
+*::after{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img{
+    max-width: 100%;
+    height: auto;
+}   /*bu kısım mobile uygun olması için, ölçeklenebilirliğini ayarlıyoruz*/
+
+a{
+    text-decoration: none; 
+    color: inherit; /*üzerinde ebeveyni varsa altındakı çocukları ondan etkilensin */
+}
+
+li{
+    list-style: none;
+}
+
+a,
+span,
+button,
+input,
+img,
+i{
+    display: block; /*bütün satırı kaplicak*/
+}
+
+button,
+input{
+    border: none;
+    background: none;
+    outline: none;
+    font: inherit;
+}
+
+button,
+i{
+    cursor: pointer;/*üzerine geldiğinde el işareti çıkıyor*/
+}
+
+input{
+    width: 100%;
+}
+html{
+    scroll-behavior: smooth;
+    font-family: "Exo,sans-serif";
+    font-size: 10px;
+}
+body{
+    color: #ffffff;
+    line-height: 1.5;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+/*su an globalde kullanacaklarımızı yazdık. yai genel bir 
+ayarlama yapmıs olduk. temel şeyleri ayarladık
+projede tekrar tekrar kullanacagımız seyler var onları yazacağız*/
+
+/*TEKRAR KULLANILACAK*/
+
+.container{
+    padding-inline: 16px;/* divin solundan ve sağından yazıya  boşluk verir*/
+}
+.section{
+    padding-block: 125px 87px; /*divin yukarısından ve asağısından yazıya bosluk verir*/
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    font-family: "Exo 2 , sans-serif";
+    font-style: normal;
+    line-height: 1.2;
+    margin-bottom: 5px;
+}
+.grid{
+    display: grid;/*ızgara yapısı sağlayacak */
+    gap: 15px; /*bosluk demek, örnek divler arası falan*/
+}
+.img-cover{
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /*img divi kaplıyor*/
+}
+.img-holder{
+    aspect-ratio: var(--width)/var(--height);/*mobilde çok kullanılır. işlevi: en boy oranını korumak 
+    genişliğin yüksekliğe oranı seklinde kullandık 1 e 3 falan seklinde oran da verebilirdik böyle kullan bos ver*/
+    background-color: #aeaeae;
+    overflow: hidden;
+}
+
+.section_title{
+    font-size: 21px;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
+}
+
+.title_wrapper{
+    margin-block-end: 20px;/*bulundugu sutundan itibaren üstten 20px boluk verdirir*/
+
+}
+.title_shape{
+    margin-block-start: 14px;
+    margin-inline:auto; /*soldan sağdan ortalıyor*/
+}
+
+.button{
+    padding: 14px 35px;
+    background-color:#24444b;
+    color: #fff;
+    border-radius: 50px;
+    font-size:18px;
+    font-weight: 500;
+    transition: 1s ease-in-out;
+}
+.botton :hover{
+    background-color: #fff;
+    color: #353746
+}
+
+/* HEADER */
+
+.header{
+    position: relative; /*bunu dersek top ve leftini ayarlayabiliyoruz bunu vermezsek sistem otomatik olarak static yapıyor*/
+    top:0;
+    left: 0;
+    background-color:#24444b;
+    padding-block: 15px;
+    width: 100%;
+    z-index: 10;
+}
+.header .container{
+    display: flex;/*yan yana sıralıyor*/
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav_toggle{
+    width: 30px;
+    height: 30px;
+    transition-duration: 0.5s;/*geçiş süresi transition ilemini ne kadar sürede işleyecegini belirler*/
+}
+
+.icon_menu{
+    transition-duration: 0.5s;
+    width: 30px;
+    height: 2px;
+    background-color: #fff;
+    position: relative;
+    text-align: left;
+}
+
+.icon_menu::before{
+    content: "";/*before ve after da allahın emri bunu mutlaka yaz*/
+    transition-duration: 0.5s; 
+    position: absolute;/*üst menüsüne relative alt menüsüne de absolute dediğimizde rahat bir şekilde oynatabiliyoruz*/
+    width: 30px;
+    height: 2px;
+    top:10px;
+    background-color: #fff;
+}
+.icon_menu::after{
+    content: "";/*before ve after da allahın emri bunu mutlaka yaz*/
+    transition-duration: 0.5s; 
+    position: absolute;/*üst menüsüne relative alt menüsüne de absolute dediğimizde rahat bir şekilde oynatabiliyoruz*/
+    width: 30px;
+    height: 2px;
+    top:-10px;
+    background-color: #fff;
+}
+
+/*bu yarım saat yazdıgımız sey 3 tane çizgi olusturmak içindi
+onun yerine buton koyamaz mıydık? bos bos icon yaptık*/
+
+.nav_toggle.active .icon_menu{ /*hover olayı benzeri tıklandıgında*/
+    transition: 0.5s;
+    background: transparent;
+}
+.nav_toggle.active .icon_menu::before{
+    transform: rotateZ(45deg) scaleX(1.25) translate(-5px,-5px);
+}
+.nav_toggle.active .icon_menu::after{
+    transform: rotateZ(-45deg) scaleX(1.25) translate(-7px,-7px);
+}
+/*animasyon işlemini yaptık tıklandıgında diye js kodu yazıyoruz*/
+
+.logo{
+    color: #fff;
+    font-size:25;
+    font-weight: bold;
+}
+
+.nav_menu{
+    position:fixed;
+    top:100%;
+    left:0;
+    right:0;
+    width: 100%;
+    height: 100vh;
+    z-index:100;
+    display: flex;
+    place-content: center;
+    background-color: #fff;
+    visibility: hidden; /*tıklandıgında görülecek*/
+    opacity: 0;
+    transition: all .5s cubic-bezier(0.9,0.03,0.69,0.22);;/*geçiş ayarlıyoruz*/
+}
+.show_menu{
+    top:68px;
+    visibility: visible;
+    opacity: 1;
+    transition: all .7s cubic-bezier(0.9,0.03,0.69,0.22);;
+}
+.nav_list{
+    display: flex;
+    flex-direction: column;/*alt alta sıralanması için*/
+    gap:18px;
+    text-align: center;
+
+}
+.nav_link{
+    font-size:20px;
+    text-transform: uppercase;/*yazılar büyük*/
+} 
+
+/* HOME */
+
+.home{
+    background-image: url("../image/counter_banner.jpg");
+    background-size: cover; /*ölçüye uyduruyor*/
+    background-repeat: no-repeat;
+    background-position: center left;
+}
+.home-content{
+    padding:150px 15px 0;
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+.home-title{
+    font-size: 28px;
+    text-transform: uppercase;
+    color: #fff;
+    font-weight: 700;
+}
+
+.typing_text{
+    width: 300;
+    overflow: hidden;
+}
+.professional_text{
+    font-family: "Exo 2", sans-serif;
+    color: #fff;
+    font-size: 30px;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-bottom: 5px;
+    font-weight: 700;
+    position: relative;
+    -webkit-text-fill-color: transparent; /*bunları yapmazask çalışmıyor*/
+    -webkit-text-stroke-color:#fff ;
+    -webkit-text-stroke-width: 1px;
+    white-space: nowrap;
+}
+
+.typed-cursor{
+    display: none;
+}
+.skills_list{
+    display: flex;
+    row-gap: 15px;
+    column-gap: 30px;
+    flex-wrap: wrap;
+}
+
+.skills_list li{
+    list-style: disc;
+    color: #fff;
+    margin-inline-start:15px ;
+}
+.skills_list span{
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.social_list{
+    display: flex;/*yan yana sırala*/
+    align-items: center;
+    gap: 11px;
+}
+
+.social_link{
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    display: grid;
+    place-content: center;
+    border: 1px solid #2c2c2c;
+    background-color: transparent;
+    font-size: 14px;
+    color: #fff;
+    border-radius: 50%;
+    transition: all .4s ease;
+}
+
+.social_link:hover{
+    background-color: #fff;
+    color: #01181d;
+}
+
+/* HİZMETLER */
+
+.service{
+    background-color: #01181d;
+}
+
+.service_list{
+    margin-block-start: 40px; /*margin-block-top aynı sey oluyor*/
+    gap:30px;
+
+}
+.service_card{
+    background-color: #04191f;
+    border: 1px solid #1b3034;
+    padding: 40px 30px 40px 40px;
+    border-radius: 12px;
+    transition: all.5s ease;
+}
+.service_card:hover{
+    background-color: #1b3034;
+}
+.service_icon i{
+    color: #fff;
+    font-size: 60px;
+    padding: 15px 10px 0 0;
+}
+.service_content{
+    margin-block-start:20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.service_title{
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 20px;
+}
+.service_desc{
+    color: #fff;
+    margin-block-end: 20px;
+}
+
+
+/* HAKKIMDA */
+
+.about{
+    background-color: #01181d;
+    padding: 32 0 30px;
+}
+
+.about_content .bio{
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+}
+.about_content h4{
+    margin-block-start: 12px;
+    font-size: 22px;
+    font-weight: 400;
+    color: #fff;
+}
+
+.about_content .bio_desc{
+    margin-block: 27px 15px;
+    color: #cdcdcd;
+}
+
+.about_info{
+    display:flex ;       /*392 ve 393. satırlar ile divleri alt alta sıraladık diğer satırlar ile 
+    diğer divler arasındaki boşlukları ayarladık*/
+    flex-direction: column;
+    gap: 38px;  /*iki div arası boşlugu gap ile ayarladık*/
+    padding: 30px 20px 20px;  /*soldaki sağdaki üstteki boşlukları padding ile verdik*/
+    background-color: #051c30;
+    border:2px solid #273a3f;
+    border-radius: 20px;
+}
+
+.about_info .name,
+.about_info .span{
+    color: #fff;
+    font-style: 16px;
+    font-weight: 400;
+}
+
+.about_buttons{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-block-start: 25px;
+    margin-block-end: 25px;
+}
+
+.about_buttons .button .download{
+    background-color: transparent;
+}
+
+.about_buttons .button .download :hover{
+    background-color: #fff;
+}
+
+/*SKİLLS*/
+
+.skills{
+    background-color: #01181d;
+    padding-block-end: 45px;
+}
+.skills_container{
+    background-color: #031f25;
+    border-radius: 12px;
+    padding: 50px 45px;
+}
+
+.skills_item{
+    gap:40px;
+}
+.skills_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    overflow: hidden;
+}
+.skills_title h3{
+    font-weight: 400;
+    font-size: 16px;
+    color: #fff;
+}
+.progress_container{
+    background-color: #43585c;
+    height: 3px;
+    overflow: visible;
+}
+
+.progress_bar{
+    background-color: #fff;
+    position: relative;
+    line-height: 4px;
+    height: 4px;
+}
+.progress_bar .percent{
+    position: absolute;
+    top:-19px;
+    right: 0;
+    font-style: 16px;
+    font-weight: 400;
+    color: #cdcdcd;
+}
+
+/*BUSINESS*/
+
+.work{
+    background-color: #01181d;
+}
+.work_list{
+    gap: 35px;
+}
+
+.work_banner{
+    position: relative;
+    cursor: pointer;  /*resmin üzerine geldiğinde el işateri olması için*/
+    /* width: 100%;
+    height: 300%;
+    overflow: hidden; */
+}
+/* .img_cover{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+} */
+
+.work_banner img{
+    transform-origin:all .5s ease;
+}
+
+.work_content{
+    position:absolute;
+    z-index: 10;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #004d41;
+    transition: all .4s ease;
+    padding:10px;
+}
+
+.work_wrapper{
+    position:absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50);
+    text-align:center;
+    width: 100%;
+}
+.card_icon i{
+    color:#fff;
+    font-size:25px;
+    margin-bottom:25px;
+}
+.card_title{
+    color:#fff;
+    font-size: 23px;
+    text-transform: uppercase;
+    transition:.5s;
+    
+}
+.card_desc{
+    color: #fff;
+    line-height: 1.2;
+}
+
+.work_banner img:hover{
+    transform: scale(1.1);
+}
+.work_banner:hover  .work_content{
+    top:0;
+}
+/* .work_item{
+    width: 100%; 
+    height: 400px; 
+    overflow: hidden; 
+    position: relative;
+    background-color: yellow;
+}
+img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+} */
